@@ -1,23 +1,38 @@
-.PHONY: up down down-v restart restart-v push
+.PHONY: up down down-v restart restart-v push logs
+
+DOCKER := $(shell command -v docker)
+COMPOSE := $(DOCKER) compose
 
 up:
-    docker-compose up -d --build
+	$(COMPOSE) up -d --build
 
 down:
-    docker-compose down
+	$(COMPOSE) down
 
 down-v:
-    docker-compose down -v
+	$(COMPOSE) down -v
 
-restart: down up
+restart:
+	$(MAKE) down
+	$(MAKE) up
 
-restart-v: down-v up
+restart-v:
+	$(MAKE) down-v
+	$(MAKE) up
 
 push:
-    @if [ -z "$(m)" ]; then \
-        echo "Usage: make push m=\"commit message\""; \
-        exit 1; \
-    fi
-    git add .
-    git commit -m "$(m)"
-    git push
+	@$(eval MSG := $(filter-out $@,$(MAKECMDGOALS)))
+	@if [ -z "$(MSG)" ]; then \
+		echo 'Uso: make push "mensaje de commit"'; \
+		exit 1; \
+	fi
+	git add .
+	git commit -m "$(MSG)"
+	git push
+
+logs:
+	$(COMPOSE) logs -f gaboWebService
+
+# permite pasar argumentos: make push "mensaje"
+%:
+	@:

@@ -1,14 +1,13 @@
-version: '3.8'
 services:
   gaboWebService:
     build: .
+    image: gabo/gabowebservice
     container_name: gaboWebService
-    networks:
-      - nginx_net
     volumes:
-      - ./data/images:/usr/src/app/data/images
+      - ../data:/usr/src/app/data
     ports:
       - "3000:3000"
+
 networks:
   nginx_net:
     external: true
