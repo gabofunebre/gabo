@@ -22,3 +22,17 @@ docker-compose up --build
 ```
 
 La carpeta `data/images` se monta para almacenamiento persistente de imágenes o archivos.
+
+
+## Makefile
+
+Se incluyen objetivos de ayuda para manejar los contenedores y publicar cambios:
+
+```bash
+make up           # Levanta el servicio con Docker Compose
+make down         # Detiene los contenedores
+make down-v       # Detiene y elimina volúmenes
+make restart      # Reinicia el servicio
+make restart-v    # Reinicia eliminando volúmenes
+make push m="mensaje" # Commit y push con el mensaje indicado
+```
