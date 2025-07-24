@@ -19,8 +19,8 @@ app.use(
 app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, '..', 'data', 'images')));
 
-const ADMIN_USER = 'Gabriel';
-const ADMIN_PASSWORD = process.env.ADMIN_PASS || 'password123';
+const ADMIN_USER = 'gabriel';
+const ADMIN_PASSWORD = process.env.ADMIN_PASS || 'admin';
 
 // Routes
 const indexRouter = require('./routes/index');
